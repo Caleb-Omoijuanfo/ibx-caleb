@@ -1,0 +1,25 @@
+.LayoutWrapper {
+  .NavContainer {
+    position: fixed;
+    top: 0;
+    width: 100%;
+
+    .NavBar {
+      background-color: rgba(0, 0, 0, 0.1);
+      padding: 1rem 6.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.23);
+
+      .NavBarCollapse {
+        .NavBarNav {
+          .NavLink {
+            color: #ffffff;
+          }
+        }
+      }
+    }
+
+    .NavBarBG {
+      background-color: #000000;
+    }
+  }
+}
