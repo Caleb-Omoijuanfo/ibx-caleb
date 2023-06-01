@@ -1,37 +1,35 @@
 import Image from "next/image";
-
+import moment from "moment";
 import styles from "@/styles/LatestPostNewsSummary.module.scss";
-
-interface ILatestPostNewsSummary {
-  tag?: string;
-  imageUrl?: string;
-}
+import { TNews } from "@/pages/post";
 
 export default function LatestPostNewsSummary({
-  tag,
-  imageUrl = "",
-}: ILatestPostNewsSummary) {
+  author,
+  publishedAt,
+  title,
+  urlToImage,
+}: TNews) {
   return (
     <div className={`${styles.Container}`}>
       <div className={styles.Top}>
-        <div className={styles.Image}>
+        <div className={styles.ImageContainer}>
           <Image
             style={{ objectFit: "cover" }}
-            src={imageUrl}
+            src={urlToImage}
             width={295}
             height={312}
             alt="logo"
+            className={styles.Image}
           />
         </div>
-        <div className={styles.Tag}>{tag}</div>
+        <div className={styles.Tag}>Tag</div>
       </div>
       <div className={styles.Bottom}>
-        <h5>
-          Charge Two Devices at the Same Time With This Magnetic Wireless
-          Charging Dock
-        </h5>
+        <h5>{title}</h5>
 
-        <p>Floyed Miles 3 Days ago</p>
+        <p>
+          {author} <span>{moment(publishedAt).fromNow()}</span>
+        </p>
       </div>
     </div>
   );

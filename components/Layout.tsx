@@ -1,6 +1,9 @@
 import { ReactNode, useEffect, useState } from "react";
 import Image from "next/image";
+import { AiOutlineSearch } from "react-icons/Ai";
+import { useRouter } from "next/router";
 import styles from "../styles/Layout.module.scss";
+import Button from "./Buttons/Button";
 
 type TLayout = {
   children: ReactNode;
@@ -9,11 +12,25 @@ type TLayout = {
 export default function Layout({ children }: TLayout) {
   const [color, setColor] = useState(false);
 
+  const router = useRouter();
+
   const changeColor = () => {
-    if (window.scrollY >= 90) {
+    if (window.scrollY >= 10) {
       setColor(true);
     } else {
       setColor(false);
+    }
+  };
+
+  const handleNavbarColor = () => {
+    if (color && router.pathname === "/") {
+      return `${styles.NavBar} ${styles.NavBarBG}`;
+    } else if (!color && router.pathname === "/") {
+      return `${styles.NavBar}`;
+    }
+
+    if (router.pathname === "/post") {
+      return `${styles.NavBar} ${styles.NavBarBlue}`;
     }
   };
 
@@ -26,9 +43,7 @@ export default function Layout({ children }: TLayout) {
       {children}
       <div className={styles.NavContainer}>
         <nav
-          className={`${
-            color ? `${styles.NavBar} ${styles.NavBarBG}` : styles.NavBar
-          } navbar navbar-expand-lg navbar-light`}
+          className={`${handleNavbarColor()} navbar navbar-expand-lg navbar-light`}
         >
           <div className="container-fluid">
             <button
@@ -74,16 +89,20 @@ export default function Layout({ children }: TLayout) {
                   </a>
                 </li>
               </ul>
-              <span className="navbar-text">
-                Navbar text with an inline element
-              </span>
+              <div className={`${styles.FIrstNavSidePiece} navbar-text`}>
+                <ul>
+                  <li>IG</li>
+                  <li>TW</li>
+                  <li>FB</li>
+                  <li>YT</li>
+                </ul>
+              </div>
             </div>
           </div>
         </nav>
+
         <nav
-          className={`${
-            color ? `${styles.NavBar} ${styles.NavBarBG}` : styles.NavBar
-          } navbar navbar-expand-lg navbar-light`}
+          className={`${handleNavbarColor()} navbar navbar-expand-lg navbar-light`}
         >
           <div className="container-fluid">
             <button
@@ -110,9 +129,11 @@ export default function Layout({ children }: TLayout) {
                     height={40}
                     width={40}
                     alt="logo"
+                    onClick={() => router.push("/")}
+                    style={{ cursor: "pointer" }}
                   />
                 </li>
-                <li className="nav-item">
+                <li className="nav-item" onClick={() => router.push("/")}>
                   <a className={`${styles.NavLink} nav-link`} href="#">
                     Home
                   </a>
@@ -148,12 +169,131 @@ export default function Layout({ children }: TLayout) {
                   </a>
                 </li>
               </ul>
-              <span className="navbar-text">
-                Navbar text with an inline element
-              </span>
+              <div className="navbar-text">
+                <AiOutlineSearch
+                  size={24}
+                  color="#ffffff"
+                  style={{ marginRight: "2rem" }}
+                />
+                <Button
+                  text="Subscribe"
+                  textColor="#ffffff"
+                  backgroundColor="#F36326"
+                  onClick={() => console.log()}
+                  customStyle={{ height: "3rem" }}
+                />
+              </div>
             </div>
           </div>
         </nav>
+
+        {router.pathname === "/post" && (
+          <div className={styles.ExtraSearchNav}>
+            <input type="text" placeholder="Search topic" />
+            <Button
+              isIcon
+              Icon={<AiOutlineSearch size={24} />}
+              textColor="#ffffff"
+              backgroundColor="#F36326"
+              onClick={() => console.log()}
+            />
+          </div>
+        )}
+      </div>
+
+      <div>
+        <div className={styles.SubscribeContainer}>
+          <div className={styles.SubscribeCard}>
+            <div className="container overflow-hidden p-0">
+              <div className="row gx-5">
+                <div className={`${styles.LeftContainer} col-6`}>
+                  <h1>Sign Up for Our Newsletters</h1>
+                </div>
+                <div className={`${styles.RightContainer} col-6`}>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                    do eiusmod. Lorem ipsum dolor sit amet, consectetur
+                    adipiscing elit, sed do eiusmoffd.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className={styles.SubscribeActionContainer}>
+              <input type="text" placeholder="Input your email address here" />
+              <Button
+                text="Subscribe Now"
+                textColor="#ffffff"
+                backgroundColor="#F36326"
+                onClick={() => console.log()}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.FooterContainer}>
+          <div className="container overflow-hidden p-0">
+            <div className="row gx-5">
+              <div className={`${styles.LeftContainer} col-6`}>
+                <Image
+                  src="/images/jake-blue.svg"
+                  height={40}
+                  width={40}
+                  alt="logo"
+                />
+                <div className={styles.TextContainer}>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                    do eiusmod. Lorem ipsum dolor sit amet, consectetur
+                    adipiscing elit, sed do eiusmod.
+                  </p>
+                </div>
+              </div>
+              <div className={`${styles.RightContainer} col-6`}>
+                <div className="container overflow-hidden p-0">
+                  <div className="row gy-5">
+                    <div className={`${styles.ColumnOne} col-4`}>
+                      <ul>
+                        <li>
+                          <h6>Categories</h6>
+                        </li>
+                        <li>International</li>
+                        <li>Regional</li>
+                        <li>Politics</li>
+                        <li>Business</li>
+                        <li>Sports</li>
+                        <li>Health</li>
+                      </ul>
+                    </div>
+                    <div className={`${styles.ColumnTwo} col-4`}>
+                      <ul>
+                        <li>
+                          <h6>Company</h6>
+                        </li>
+                        <li>About Us</li>
+                        <li>Careers</li>
+                        <li>Privacy Policy</li>
+                        <li>Terms of Services</li>
+                        <li>Contact Us</li>
+                      </ul>
+                    </div>
+                    <div className={`${styles.ColumnThree} col-4`}>
+                      <ul>
+                        <li>
+                          <h6>Social Media</h6>
+                        </li>
+                        <li>Youtube</li>
+                        <li>Instagram</li>
+                        <li>Facebook</li>
+                        <li>Twitter</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
