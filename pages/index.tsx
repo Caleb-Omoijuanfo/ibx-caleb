@@ -4,7 +4,6 @@ import styles from "@/styles/Home.module.scss";
 import LandingNewsSummary from "@/components/LandingNewsSummary";
 import Button from "@/components/Buttons/Button";
 import LatestPostNewsSummary from "@/components/LatesPostNewsSummary";
-import { postGallery } from "@/utils/util";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { useEffect, useState } from "react";
 import { getNews } from "@/app/feature/news/newsSlice";

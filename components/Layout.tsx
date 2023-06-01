@@ -1,5 +1,6 @@
 import { ReactNode, useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { AiOutlineSearch } from "react-icons/Ai";
 import { useRouter } from "next/router";
 import styles from "../styles/Layout.module.scss";
@@ -31,6 +32,12 @@ export default function Layout({ children }: TLayout) {
 
     if (router.pathname === "/post") {
       return `${styles.NavBar} ${styles.NavBarBlue}`;
+    }
+
+    if (color && router.pathname === "/post/[title]") {
+      return `${styles.NavBar} ${styles.NavBarBG}`;
+    } else if (!color && router.pathname === "/post/[title]") {
+      return `${styles.NavBar}`;
     }
   };
 
@@ -65,28 +72,28 @@ export default function Layout({ children }: TLayout) {
                 className={`${styles.NavBarNav} navbar-nav me-auto mb-2 mb-lg-0`}
               >
                 <li className="nav-item">
-                  <a
+                  <Link
                     className={`${styles.NavLink} nav-link`}
                     aria-current="page"
-                    href="#"
+                    href="/"
                   >
                     News
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className={`${styles.NavLink} nav-link`} href="#">
+                  <Link className={`${styles.NavLink} nav-link`} href="/">
                     Innovation
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className={`${styles.NavLink} nav-link`} href="#">
+                  <Link className={`${styles.NavLink} nav-link`} href="/">
                     Science
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className={`${styles.NavLink} nav-link`} href="#">
+                  <Link className={`${styles.NavLink} nav-link`} href="/">
                     Industry
-                  </a>
+                  </Link>
                 </li>
               </ul>
               <div className={`${styles.FIrstNavSidePiece} navbar-text`}>
@@ -133,40 +140,40 @@ export default function Layout({ children }: TLayout) {
                     style={{ cursor: "pointer" }}
                   />
                 </li>
-                <li className="nav-item" onClick={() => router.push("/")}>
-                  <a className={`${styles.NavLink} nav-link`} href="#">
+                <li className="nav-item">
+                  <Link className={`${styles.NavLink} nav-link`} href="/">
                     Home
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className={`${styles.NavLink} nav-link`} href="#">
+                  <Link className={`${styles.NavLink} nav-link`} href="/">
                     Feature
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className={`${styles.NavLink} nav-link`} href="#">
+                  <Link className={`${styles.NavLink} nav-link`} href="/">
                     Shop
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className={`${styles.NavLink} nav-link`} href="#">
+                  <Link className={`${styles.NavLink} nav-link`} href="/">
                     Gallery
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className={`${styles.NavLink} nav-link`} href="#">
+                  <Link className={`${styles.NavLink} nav-link`} href="/">
                     Blog
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className={`${styles.NavLink} nav-link`} href="#">
+                  <Link className={`${styles.NavLink} nav-link`} href="/">
                     About
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className={`${styles.NavLink} nav-link`} href="#">
+                  <Link className={`${styles.NavLink} nav-link`} href="/">
                     Contact
-                  </a>
+                  </Link>
                 </li>
               </ul>
               <div className="navbar-text">

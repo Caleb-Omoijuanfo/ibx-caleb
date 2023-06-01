@@ -1,0 +1,18 @@
+.SinglePostContainer {
+  padding: 10rem 0 6.5rem;
+  background-image: url("../public/images/dark.webp");
+  background-color: #cccccc;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+
+  color: #ffffff;
+}
+
+.Story {
+  margin-top: 5rem;
+  padding-left: 6.5rem;
+  padding-right: 6.5rem;
+  color: var(--text-color-dark);
+}

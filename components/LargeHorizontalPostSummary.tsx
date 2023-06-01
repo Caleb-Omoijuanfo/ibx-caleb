@@ -13,27 +13,28 @@ const mulish = Mulish({
 
 export default function LargeHorizontalPostSummary({
   author,
-  content,
   description,
   publishedAt,
-  source,
   title,
-  url,
   urlToImage,
 }: TNews) {
   return (
-    <div className={`${styles.Container} container overflow-hidden p-0`}>
+    <div
+      className={`${styles.Container} ${mulish.className} container overflow-hidden p-0`}
+    >
       <div className="row gx-5">
         <div className="col-5">
           <div className={styles.ImageContainer}>
-            <Image
-              src={urlToImage ? urlToImage : "/images/family.webp"}
-              height={800}
-              width={500}
-              alt="logo"
-              className={styles.Image}
-              loading="lazy"
-            />
+            {urlToImage && (
+              <Image
+                src={urlToImage}
+                height={800}
+                width={500}
+                alt="logo"
+                className={styles.Image}
+                loading="lazy"
+              />
+            )}
           </div>
         </div>
         <div className="col-7">
