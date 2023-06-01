@@ -1,7 +1,7 @@
 import { ReactNode, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { AiOutlineSearch } from "react-icons/Ai";
+import { AiOutlineSearch } from "react-icons/ai";
 import { useRouter } from "next/router";
 import styles from "../styles/Layout.module.scss";
 import Button from "./Buttons/Button";

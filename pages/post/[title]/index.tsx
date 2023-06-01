@@ -11,7 +11,7 @@ const mulish = Mulish({
   display: "swap",
 });
 
-const post = () => {
+const SinglePost = () => {
   const singlePost = useAppSelector((state) => state?.singlePost);
 
   return (
@@ -35,4 +35,4 @@ const post = () => {
   );
 };
 
-export default post;
+export default SinglePost;
