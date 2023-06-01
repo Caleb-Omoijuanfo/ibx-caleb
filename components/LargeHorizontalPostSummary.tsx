@@ -32,6 +32,7 @@ export default function LargeHorizontalPostSummary({
               width={500}
               alt="logo"
               className={styles.Image}
+              loading="lazy"
             />
           </div>
         </div>

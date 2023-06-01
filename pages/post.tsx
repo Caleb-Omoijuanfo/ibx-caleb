@@ -22,20 +22,20 @@ export type TNews = {
 };
 
 export default function Post() {
-  const [pageOffset, setPageOffset] = useState(1);
+  const [pageOffset, setPageOffset] = useState(0);
   const [pageCount, setPageCount] = useState(10);
   const [pageSize] = useState(10);
 
   const handlePageChange = (event: any) => {
-    setPageOffset(event.selected + 1);
+    setPageOffset(event.selected);
   };
 
   const dispatch = useAppDispatch();
   const news = useAppSelector((state) => state.news);
 
   useEffect(() => {
-    dispatch(getNews({ pageSize, page: pageOffset }));
-  }, []);
+    dispatch(getNews({ pageSize, page: pageOffset + 1 }));
+  }, [pageOffset]);
 
   return (
     <div className={styles.AllNewsContainer}>
