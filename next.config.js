@@ -24,6 +24,11 @@ const nextConfig = {
         pathname: "/.imaging/**",
         hostname: "www.cnnphilippines.com",
       },
+      {
+        protocol: "https",
+        pathname: "/uu/**",
+        hostname: "s.yimg.com",
+      },
     ],
   },
 };

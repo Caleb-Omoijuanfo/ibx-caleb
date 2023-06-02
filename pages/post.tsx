@@ -5,11 +5,12 @@ import LargeHorizontalPostSummary from "@/components/LargeHorizontalPostSummary"
 import { getNews } from "@/app/feature/news/newsSlice";
 import Paginator from "@/components/Pagination/Pagination";
 import { useAppSelector } from "@/app/hooks";
-
-import styles from "@/styles/AllNews.module.scss";
 import ErrorComponent from "@/components/Error";
 import { getSourceQuery } from "@/app/feature/news/sourceSlice";
 import EmptyComponent from "@/components/Empty";
+import { CustomHorizontalPageLoader } from "@/components/Loader";
+
+import styles from "@/styles/AllNews.module.scss";
 
 export type TNews = {
   author: string;
@@ -43,7 +44,7 @@ export default function Post() {
     } else if (!news?.error && news?.news?.articles.length < 1) {
       return <EmptyComponent />;
     } else if (news?.loading) {
-      return "Loading...";
+      return <CustomHorizontalPageLoader />;
     } else {
       return (
         <div className={styles.PostList}>
@@ -76,17 +77,6 @@ export default function Post() {
     <div className={styles.AllNewsContainer}>
       <h4>News</h4>
 
-      {/* {news?.error ? (
-        <ErrorComponent errorMessage={news?.news?.message} />
-      ) : news.loading ? (
-        "Loading..."
-      ) : (
-        <div className={styles.PostList}>
-          {news?.news?.articles.map((_news: TNews, index: number) => (
-            <LargeHorizontalPostSummary key={index} {..._news} />
-          ))}
-        </div>
-      )} */}
       {renderItems()}
 
       <div className={styles.Pagination}>

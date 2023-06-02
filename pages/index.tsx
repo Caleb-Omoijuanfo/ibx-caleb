@@ -11,6 +11,7 @@ import { getNews } from "@/app/feature/news/newsSlice";
 import { TNews } from "./post";
 import ErrorComponent from "@/components/Error";
 import EmptyComponent from "@/components/Empty";
+import { postGallery } from "@/utils/util";
 
 const mulish = Mulish({
   weight: ["400", "700"],
@@ -69,11 +70,9 @@ export default function Home() {
               <div className={styles.RightMainCard}>
                 <h4 className="mb-3">Popular this week</h4>
 
-                <LandingNewsSummary />
-                <LandingNewsSummary />
-                <LandingNewsSummary />
-                <LandingNewsSummary />
-                <LandingNewsSummary />
+                {postGallery.map((_item, index) => (
+                  <LandingNewsSummary key={index} {..._item} />
+                ))}
               </div>
             </div>
           </div>
