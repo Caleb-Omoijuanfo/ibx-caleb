@@ -1,4 +1,5 @@
 import Router from "next/router";
+
 import { Mulish } from "next/font/google";
 import styles from "@/styles/Home.module.scss";
 import LandingNewsSummary from "@/components/LandingNewsSummary";
@@ -8,6 +9,7 @@ import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { useEffect, useState } from "react";
 import { getNews } from "@/app/feature/news/newsSlice";
 import { TNews } from "./post";
+import ErrorComponent from "@/components/Error";
 
 const mulish = Mulish({
   weight: ["400", "700"],
@@ -69,13 +71,18 @@ export default function Home() {
             onClick={handleNavigate}
           />
         </div>
-        <div className={styles.PostList}>
-          {news.loading
-            ? "Loading..."
-            : news?.news?.articles.map((_news: TNews, index: number) => (
-                <LatestPostNewsSummary key={index} {..._news} />
-              ))}
-        </div>
+
+        {news?.error ? (
+          <ErrorComponent />
+        ) : news.loading ? (
+          "Loading..."
+        ) : (
+          <div className={styles.PostList}>
+            {news?.news?.articles.map((_news: TNews, index: number) => (
+              <LatestPostNewsSummary key={index} {..._news} />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

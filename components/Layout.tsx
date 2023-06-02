@@ -1,10 +1,13 @@
-import { ReactNode, useEffect, useState } from "react";
+import { ChangeEvent, ReactNode, useEffect, useState } from "react";
+
 import Image from "next/image";
 import Link from "next/link";
 import { AiOutlineSearch } from "react-icons/ai";
 import { useRouter } from "next/router";
 import styles from "../styles/Layout.module.scss";
 import Button from "./Buttons/Button";
+import { useAppDispatch, useAppSelector } from "@/app/hooks";
+import { getSourceQuery, getSources } from "@/app/feature/news/sourceSlice";
 
 type TLayout = {
   children: ReactNode;
@@ -14,6 +17,9 @@ export default function Layout({ children }: TLayout) {
   const [color, setColor] = useState(false);
 
   const router = useRouter();
+  const dispatch = useAppDispatch();
+
+  const { source } = useAppSelector((state) => state);
 
   const changeColor = () => {
     if (window.scrollY >= 10) {
@@ -41,9 +47,19 @@ export default function Layout({ children }: TLayout) {
     }
   };
 
+  const handleChangeSouce = (e: ChangeEvent<HTMLSelectElement>) => {
+    return dispatch(getSourceQuery({ query: e.target.value }));
+  };
+
   useEffect(() => {
     window.addEventListener("scroll", changeColor);
   }, []);
+
+  useEffect(() => {
+    if (router.pathname === "/post") {
+      dispatch(getSources());
+    }
+  }, [router.pathname]);
 
   return (
     <div className={styles.LayoutWrapper}>
@@ -196,7 +212,14 @@ export default function Layout({ children }: TLayout) {
 
         {router.pathname === "/post" && (
           <div className={styles.ExtraSearchNav}>
-            <input type="text" placeholder="Search topic" />
+            <select placeholder="Search by source" onChange={handleChangeSouce}>
+              <option value="">Search by source</option>
+              {source?.source?.sources.map((_source, index) => (
+                <option key={index} value={_source?.name}>
+                  {_source?.name}
+                </option>
+              ))}
+            </select>
             <Button
               isIcon
               Icon={<AiOutlineSearch size={24} />}

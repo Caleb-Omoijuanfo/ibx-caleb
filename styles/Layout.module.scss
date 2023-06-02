@@ -32,19 +32,22 @@
 
     .ExtraSearchNav {
       background-color: var(--primary-color-fifty);
-      height: 7.5rem;
-      padding: 2rem 6.5rem;
+      height: 5.5rem;
+      padding: 1rem 6.5rem;
       width: 100%;
       display: flex;
+      justify-content: flex-end;
 
-      input {
-        width: 72.6rem;
+      select {
+        width: 15.6rem;
         height: 3.5rem;
         border-radius: 5px;
         outline: 0;
         border: none;
-        padding: 1.5rem;
+        padding: 0.5rem;
         margin-right: 1rem;
+        color: var(--text-color);
+        font-size: 0.875rem;
 
         ::placeholder {
           color: var(--text-color);

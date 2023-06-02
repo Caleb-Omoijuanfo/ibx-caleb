@@ -4,10 +4,12 @@ import singlePostSlice from "./feature/news/singlePostSlice";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import sourceSlice from "./feature/news/sourceSlice";
 
 const rootReducer = combineReducers({
   news: newsSlice,
   singlePost: singlePostSlice,
+  source: sourceSlice,
 });
 
 const persistConfig = {

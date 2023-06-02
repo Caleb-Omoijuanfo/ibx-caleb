@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+
 import { useAppDispatch } from "@/app/hooks";
 import LargeHorizontalPostSummary from "@/components/LargeHorizontalPostSummary";
 import { getNews } from "@/app/feature/news/newsSlice";
@@ -6,6 +7,7 @@ import Paginator from "@/components/Pagination/Pagination";
 import { useAppSelector } from "@/app/hooks";
 
 import styles from "@/styles/AllNews.module.scss";
+import ErrorComponent from "@/components/Error";
 
 export type TNews = {
   author: string;
@@ -23,7 +25,7 @@ export type TNews = {
 
 export default function Post() {
   const [pageOffset, setPageOffset] = useState(0);
-  const [pageCount, setPageCount] = useState(10);
+  const [pageCount] = useState(10);
   const [pageSize] = useState(10);
 
   const handlePageChange = (event: any) => {
@@ -31,20 +33,29 @@ export default function Post() {
   };
 
   const dispatch = useAppDispatch();
-  const news = useAppSelector((state) => state.news);
+  const { news, source } = useAppSelector((state) => state);
 
   useEffect(() => {
-    dispatch(getNews({ pageSize, page: pageOffset + 1 }));
-  }, [pageOffset]);
+    dispatch(
+      getNews({ pageSize, page: pageOffset + 1, sources: source?.sourceQuery })
+    );
+  }, [pageOffset, source?.sourceQuery]);
 
   return (
     <div className={styles.AllNewsContainer}>
       <h4>News</h4>
-      {news.loading
-        ? "Loading..."
-        : news?.news?.articles.map((_news: TNews, index: number) => (
+
+      {news?.error ? (
+        <ErrorComponent />
+      ) : news.loading ? (
+        "Loading..."
+      ) : (
+        <div className={styles.PostList}>
+          {news?.news?.articles.map((_news: TNews, index: number) => (
             <LargeHorizontalPostSummary key={index} {..._news} />
           ))}
+        </div>
+      )}
 
       <div className={styles.Pagination}>
         <Paginator
