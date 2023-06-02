@@ -11,7 +11,9 @@ type TNewsState = {
 type TParams = {
   page: number;
   pageSize: number;
-  sources?: string;
+  sources?: {
+    query: string;
+  };
 };
 
 // Define the initial state using that type
@@ -24,9 +26,13 @@ const initialState: TNewsState = {
 export const getNews = createAsyncThunk(
   "getNews",
   async ({ page, pageSize, sources }: TParams) => {
-    const response = await fetchNews(pageSize, page, sources);
+    try {
+      const response = await fetchNews(pageSize, page, sources?.query);
 
-    return response?.data;
+      return response?.data;
+    } catch (error: any) {
+      return error?.response?.data;
+    }
   }
 );
 
@@ -39,9 +45,15 @@ export const newsSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(getNews.fulfilled, (state, action) => {
-      state.loading = false;
-      state.news = action.payload;
-      state.error = "";
+      if (action?.payload?.status === "error") {
+        state.loading = false;
+        state.news = action.payload;
+        state.error = action?.payload?.message;
+      } else {
+        state.loading = false;
+        state.news = action.payload;
+        state.error = "";
+      }
     });
     builder.addCase(getNews.rejected, (state, action) => {
       state.loading = false;

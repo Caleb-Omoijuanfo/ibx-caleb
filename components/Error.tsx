@@ -2,13 +2,17 @@ import Image from "next/image";
 
 import styles from "@/styles/Error.module.scss";
 
-export default function ErrorComponent() {
+export default function ErrorComponent({
+  errorMessage = "An error occurred while fetching news",
+}: {
+  errorMessage?: string;
+}) {
   return (
     <div className={styles.ErrorContainer}>
-      <div>
+      <div className={styles.Error}>
         <Image src="/images/error.svg" height={400} width={400} alt="logo" />
-        <p className={styles.Message}>An error occurred while fetching news</p>
       </div>
+      <p className={styles.Message}>{errorMessage}</p>
     </div>
   );
 }

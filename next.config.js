@@ -19,6 +19,11 @@ const nextConfig = {
         protocol: "http",
         hostname: "cleantechnica.com",
       },
+      {
+        protocol: "https",
+        pathname: "/.imaging/**",
+        hostname: "www.cnnphilippines.com",
+      },
     ],
   },
 };

@@ -1,10 +1,13 @@
 .ErrorContainer {
-  display: flex;
-  justify-content: center;
   width: 100%;
 
   .Message {
     text-align: center;
     color: var(--text-color);
+  }
+
+  .Error {
+    display: flex;
+    justify-content: center;
   }
 }

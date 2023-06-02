@@ -215,7 +215,7 @@ export default function Layout({ children }: TLayout) {
             <select placeholder="Search by source" onChange={handleChangeSouce}>
               <option value="">Search by source</option>
               {source?.source?.sources.map((_source, index) => (
-                <option key={index} value={_source?.name}>
+                <option key={index} value={_source?.id}>
                   {_source?.name}
                 </option>
               ))}

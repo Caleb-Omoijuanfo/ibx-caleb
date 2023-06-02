@@ -56,10 +56,9 @@ export const sourceSlice = createSlice({
   },
   reducers: {
     getSourceQuery: (state, action) => {
-      console.log("payload: ", action?.payload);
       return {
         ...state,
-        sourceQuery: action?.payload,
+        sourceQuery: action?.payload?.query,
       };
     },
   },
